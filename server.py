@@ -24,7 +24,10 @@ class ExamAPIHandler(http.server.BaseHTTPRequestHandler):
         path = parsed_url.path
 
         # API Routes
-        if path == "/api/history":
+        if path == "/health" or path == "/ping":
+            self.send_json_response({"status": "ok", "service": "ai901-simulator"})
+            return
+        elif path == "/api/history":
             self.handle_get_history()
             return
         elif path == "/api/stats":
