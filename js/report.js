@@ -231,33 +231,50 @@ function renderQuestionReviews(gradedQuestions) {
         let userAnsStr = formatAnswerString(q.user_answer);
         let correctAnsStr = formatAnswerString(q.correct_answer);
 
-        const scenarioHTML = q.scenario ? `<div class="scenario-card"><span class="card-label">SCENARIO:</span>${sanitize(q.scenario)}</div>` : "";
+        const scenarioParsed = q.scenario ? (typeof marked !== 'undefined' ? marked.parse(q.scenario) : sanitize(q.scenario)) : "";
+        const scenarioHTML = q.scenario ? `
+            <div class="scenario-card">
+                <div class="scenario-header">
+                    <span class="card-label">
+                        <svg class="scenario-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                        Case Scenario
+                    </span>
+                </div>
+                <div class="scenario-body">${scenarioParsed}</div>
+            </div>
+        ` : "";
+
+        const questionParsed = typeof marked !== 'undefined' ? marked.parse(q.question) : sanitize(q.question);
+        const expCorrect = typeof marked !== 'undefined' ? marked.parse(q.explanations.correct) : sanitize(q.explanations.correct);
+        const expIncorrect = typeof marked !== 'undefined' ? marked.parse(q.explanations.incorrect) : sanitize(q.explanations.incorrect);
+        const expConcept = typeof marked !== 'undefined' ? marked.parse(q.explanations.concept) : sanitize(q.explanations.concept);
 
         card.innerHTML = `
             <div class="review-card-meta">
                 <div class="left-meta">
                     <span class="badge-status ${q.is_correct ? 'status-pass' : 'status-fail'}">${q.is_correct ? 'CORRECT' : 'INCORRECT'}</span>
-                    <span>Question ${idx + 1} of 50</span>
-                    <span>|</span>
-                    <span>${sanitize(q.objective)}</span>
-                    <span>|</span>
-                    <span>${sanitize(q.difficulty)}</span>
+                    <span style="font-weight: 600; color: var(--text-primary);">Question ${idx + 1} of 50</span>
+                    <span>•</span>
+                    <span class="meta-badge" style="padding: 2px 8px; font-size: 0.72rem;">${sanitize(q.objective)}</span>
+                    <span class="meta-badge diff-${q.difficulty ? q.difficulty.toLowerCase() : ''}" style="padding: 2px 8px; font-size: 0.72rem;">${sanitize(q.difficulty)}</span>
                 </div>
                 <div class="right-meta">
-                    <span>Confidence: ${sanitize(q.confidence)} (${q.time_spent}s spent)</span>
+                    <span>Confidence: <strong>${sanitize(q.confidence)}</strong> (${q.time_spent}s spent)</span>
                 </div>
             </div>
             
             ${scenarioHTML}
-            <h4>${sanitize(q.question)}</h4>
+            <div class="review-prompt">
+                <h4>${questionParsed}</h4>
+            </div>
             
             ${renderChoicesInReview(q)}
 
             <div class="explanation-block">
                 <h5>Detailed Explanation</h5>
-                <p><strong>Why Correct:</strong> ${sanitize(q.explanations.correct)}</p>
-                <p><strong>Why Other Options are Incorrect:</strong> ${sanitize(q.explanations.incorrect)}</p>
-                <p><strong>Exam Concept:</strong> <em>${sanitize(q.explanations.concept)}</em></p>
+                <p><strong>Why Correct:</strong> ${expCorrect}</p>
+                <p><strong>Distractor Analysis:</strong> ${expIncorrect}</p>
+                <p><strong>Exam Concept:</strong> <em>${expConcept}</em></p>
             </div>
         `;
         elements.reviewQuestionsList.appendChild(card);

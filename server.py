@@ -10,7 +10,7 @@ import mimetypes
 import random
 from datetime import datetime
 
-PORT = 8000
+PORT = int(os.environ.get("PORT", 8085))
 DB_FILE = "ai901_simulator.db"
 
 class ExamAPIHandler(http.server.BaseHTTPRequestHandler):

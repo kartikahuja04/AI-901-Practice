@@ -149,7 +149,20 @@ function updateSystemStateFooter() {
         }
     });
 
-    elements.systemStateFooter.textContent = `SYSTEM STATE [Question: ${state.currentIdx + 1}/50 | Answered: ${answered} | Remaining: ${remaining} | Marked for Review: [${markedList.join(", ")}] | Objective 1 Questions Seen: ${obj1Seen} | Objective 2 Questions Seen: ${obj2Seen}]`;
+    const markedText = markedList.length > 0 ? `${markedList.length} Flagged (${markedList.join(", ")})` : "0 Flagged";
+    elements.systemStateFooter.innerHTML = `
+        <span class="status-item"><span class="status-dot"></span>Question ${state.currentIdx + 1}/50</span>
+        <span class="status-sep">•</span>
+        <span class="status-item">${answered} Answered</span>
+        <span class="status-sep">•</span>
+        <span class="status-item">${remaining} Remaining</span>
+        <span class="status-sep">•</span>
+        <span class="status-item">${markedText}</span>
+        <span class="status-sep">•</span>
+        <span class="status-item">Obj 1: ${obj1Seen}</span>
+        <span class="status-sep">•</span>
+        <span class="status-item">Obj 2: ${obj2Seen}</span>
+    `;
 }
 
 // ─── § 21 · CLI Command Parser ──────────────────────────────────────────────

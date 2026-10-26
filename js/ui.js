@@ -37,10 +37,16 @@ function loadQuestion(index) {
     elements.questionProgressText.textContent = `Question ${index + 1} of ${state.questions.length}`;
     elements.progressBarFill.style.width = `${((index + 1) / state.questions.length) * 100}%`;
 
-    // Set metadata tags
+    // Set metadata tags with class-based color coding
     elements.qObjective.textContent = q.objective;
+    elements.qObjective.className = "meta-badge objective-badge";
+
     elements.qDifficulty.textContent = q.difficulty;
+    const diffClass = q.difficulty ? `diff-${q.difficulty.toLowerCase()}` : "";
+    elements.qDifficulty.className = `meta-badge ${diffClass}`;
+
     elements.qTopic.textContent = q.topic;
+    elements.qTopic.className = "meta-badge info-badge";
 
     // Set question type badge
     const typeLabels = {
@@ -52,6 +58,7 @@ function loadQuestion(index) {
     };
     if (elements.qMetaType) {
         elements.qMetaType.textContent = typeLabels[q.type] || q.type;
+        elements.qMetaType.className = "meta-badge type-badge";
     }
 
     // Set scenario description details
@@ -65,8 +72,13 @@ function loadQuestion(index) {
     // Set prompt text
     elements.qPromptText.innerHTML = marked.parse(q.question);
 
-    // Sync Review Marker checkbox
-    elements.markReviewChk.checked = state.marked.has(q.id);
+    // Sync Review Marker checkbox and active style
+    const isMarked = state.marked.has(q.id);
+    elements.markReviewChk.checked = isMarked;
+    const reviewLabel = elements.markReviewChk.closest(".review-checkbox-label");
+    if (reviewLabel) {
+        reviewLabel.classList.toggle("is-marked", isMarked);
+    }
 
     // Update active state in grid navigation
     document.querySelectorAll(".grid-btn").forEach(btn => btn.classList.remove("active"));
@@ -92,11 +104,13 @@ function renderAnswers(q) {
                 const label = document.createElement("label");
                 label.className = "option-label";
                 if (savedAns === opt) label.classList.add("selected");
+                const optLetter = String.fromCharCode(65 + oIdx);
 
                 label.innerHTML = `
                     <input type="radio" name="single_choice" value="${opt}" ${savedAns === opt ? 'checked' : ''}>
+                    <span class="option-key-badge">${optLetter}</span>
                     <span class="radio-custom"></span>
-                    ${opt}
+                    <span class="option-text">${typeof marked !== 'undefined' && marked.parseInline ? marked.parseInline(opt) : opt}</span>
                 `;
 
                 label.addEventListener("change", () => {
@@ -115,11 +129,13 @@ function renderAnswers(q) {
                 label.className = "option-label";
                 const isChecked = Array.isArray(savedAns) && savedAns.includes(opt);
                 if (isChecked) label.classList.add("selected");
+                const optLetter = String.fromCharCode(65 + oIdx);
 
                 label.innerHTML = `
                     <input type="checkbox" name="multi_choice" value="${opt}" ${isChecked ? 'checked' : ''}>
+                    <span class="option-key-badge">${optLetter}</span>
                     <span class="checkbox-custom"></span>
-                    ${opt}
+                    <span class="option-text">${typeof marked !== 'undefined' && marked.parseInline ? marked.parseInline(opt) : opt}</span>
                 `;
 
                 label.addEventListener("change", (e) => {
@@ -484,6 +500,11 @@ function handleMarkForReviewChange() {
         state.marked.add(q.id);
     } else {
         state.marked.delete(q.id);
+    }
+
+    const reviewLabel = elements.markReviewChk.closest(".review-checkbox-label");
+    if (reviewLabel) {
+        reviewLabel.classList.toggle("is-marked", elements.markReviewChk.checked);
     }
 
     // Sync button classes

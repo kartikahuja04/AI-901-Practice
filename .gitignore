@@ -7,6 +7,10 @@ venv/
 
 # SQLite database (contains personal exam history — do not commit)
 ai901_simulator.db
+ai901_simulator.db-shm
+ai901_simulator.db-wal
+*.db-shm
+*.db-wal
 
 # Legacy question pool (canonical source is database.py — this file is kept for reference only)
 questions.js

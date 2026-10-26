@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Azure AI Fundamentals (AI-901) Ultimate Exam Simulator</title>
-    <meta name="description" content="Prepare for the Microsoft AI-901 Certification Exam with our high-fidelity, adaptive Pearson VUE simulation containing 350 realistic questions, 5 question types, CLI controls, and deep performance analytics.">
+    <title>Microsoft Azure AI Fundamentals (AI-901) Exam Simulator</title>
+    <meta name="description" content="Prepare for the Microsoft AI-901 Certification Exam with our high-fidelity, adaptive Pearson VUE simulation containing 410+ realistic questions, 5 question types, and deep performance analytics.">
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts for sleek premium look -->
+    <!-- Google Fonts for sleek minimal typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Highlight.js for code block syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
@@ -20,44 +20,58 @@
         <!-- ================= WELCOME DASHBOARD ================= -->
         <main id="dashboard-view" class="view-panel active">
             <header class="hero-header">
-                <div class="azure-logo">▲</div>
-                <h1>Microsoft Azure AI Fundamentals</h1>
-                <p class="subtitle">AI-901 Certification Simulation Practice Environment</p>
+                <div class="azure-badge-pill">
+                    <span class="pulse-dot"></span>
+                    <span>Microsoft Certification Practice</span>
+                </div>
+                <h1>Azure AI Fundamentals</h1>
+                <p class="subtitle">AI-901 Exam Simulation & Diagnostics Engine</p>
+
+                <div class="hero-quick-meta">
+                    <span class="hero-meta-chip">50 Questions</span>
+                    <span class="hero-meta-chip">60 Minutes</span>
+                    <span class="hero-meta-chip">Passing Score: 700 / 1000</span>
+                    <span class="hero-meta-chip highlight-chip">410 Question Pool</span>
+                </div>
             </header>
 
             <section class="dashboard-grid">
                 <!-- Exam Guidelines Card -->
                 <article class="info-card rules-card">
-                    <h2>Exam Rules & Guidelines</h2>
+                    <div class="card-title-row">
+                        <span class="card-icon">📋</span>
+                        <h2>Exam Blueprint & Rules</h2>
+                    </div>
                     <ul class="clean-list">
-                        <li><strong>Passing Score:</strong> 700 out of 1000 points</li>
+                        <li><strong>Passing Score:</strong> 700 out of 1000 scaled points</li>
                         <li><strong>Exam Length:</strong> <span id="stat-exam-length-val">50 Questions (Drawn from a pool of ...)</span></li>
-                        <li><strong>Target Ratios:</strong> 20% Easy, 50% Medium, 30% Hard</li>
-                        <li><strong>Objective coverage:</strong> AI Concepts (40-45%), Microsoft Foundry AI Solutions (55-60%)</li>
-                        <li><strong>Anti-Repetition Engine:</strong> Generates unique exams prioritizing questions you have not seen or have previously failed.</li>
-                        <li><strong>Pearson VUE Layout:</strong> Standard single-question view with navigation panel and review marks.</li>
+                        <li><strong>Difficulty Ratio:</strong> 20% Easy · 50% Medium · 30% Hard</li>
+                        <li><strong>Domains Covered:</strong> AI Concepts (40-45%) · Foundry AI Solutions (55-60%)</li>
+                        <li><strong>Anti-Repetition Engine:</strong> Prioritizes questions you have not seen or have previously failed.</li>
+                        <li><strong>Format Alignment:</strong> Single-choice, multi-select, hotspots, true/false matrix, drag & drop.</li>
                     </ul>
                 </article>
 
                 <!-- Commands Index Card -->
                 <article class="info-card CLI-card">
-                    <h2>CLI Command Bar Interface</h2>
-                    <p>In addition to clicking buttons, you can interact with the simulator using the command line bar at the bottom of the exam view:</p>
+                    <div class="card-title-row">
+                        <span class="card-icon">⌨️</span>
+                        <h2>Hotkeys & CLI Shortcuts</h2>
+                    </div>
+                    <p class="card-intro">Navigate quickly with keyboard shortcuts or the command bar:</p>
                     <table class="cli-table">
                         <thead>
                             <tr>
-                                <th>Command</th>
+                                <th>Shortcut / Command</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td><code class="cmd-code">/next</code></td><td>Navigate to the next question</td></tr>
-                            <tr><td><code class="cmd-code">/prev</code></td><td>Navigate to the previous question</td></tr>
-                            <tr><td><code class="cmd-code">/mark</code></td><td>Mark the current question for review</td></tr>
-                            <tr><td><code class="cmd-code">/unmark</code></td><td>Unmark the current question</td></tr>
-                            <tr><td><code class="cmd-code">/review</code></td><td>Open/Close the question review sidebar drawer</td></tr>
-                            <tr><td><code class="cmd-code">/status</code></td><td>Display current progress in CLI status logs</td></tr>
-                            <tr><td><code class="cmd-code">/submit</code></td><td>Submit the exam for immediate grading</td></tr>
+                            <tr><td><code class="cmd-code">A</code> <code class="cmd-code">B</code> <code class="cmd-code">C</code> <code class="cmd-code">D</code></td><td>Select option directly</td></tr>
+                            <tr><td><code class="cmd-code">←</code> / <code class="cmd-code">→</code></td><td>Previous / Next question</td></tr>
+                            <tr><td><code class="cmd-code">/mark</code></td><td>Toggle review flag</td></tr>
+                            <tr><td><code class="cmd-code">/review</code></td><td>Open question drawer</td></tr>
+                            <tr><td><code class="cmd-code">/submit</code></td><td>Submit exam session</td></tr>
                         </tbody>
                     </table>
                 </article>
@@ -65,10 +79,13 @@
 
             <!-- Pool Statistics Widget -->
             <section class="pool-stats-card">
-                <h2>📊 Question Pool Statistics</h2>
+                <div class="card-title-row">
+                    <span class="card-icon">📊</span>
+                    <h2>Question Pool Saturation & Coverage</h2>
+                </div>
                 <div class="pool-stats-grid">
                     <div class="pool-stat-item">
-                        <span class="pool-stat-label">Total Questions</span>
+                        <span class="pool-stat-label">Total Pool</span>
                         <span class="pool-stat-value" id="stat-total-val">...</span>
                         <span class="pool-stat-sub">Across all domains</span>
                     </div>
@@ -117,13 +134,16 @@
 
             <!-- Previous Attempts History -->
             <section class="history-section">
-                <h2>Your Mock Exam History</h2>
+                <div class="card-title-row">
+                    <span class="card-icon">🕒</span>
+                    <h2>Mock Exam History</h2>
+                </div>
                 <div class="table-scroll">
                     <table id="history-table" class="history-table">
                         <thead>
                             <tr>
-                                <th>Date/Time</th>
-                                <th>Score (100-1000)</th>
+                                <th>Date / Time</th>
+                                <th>Score (100–1000)</th>
                                 <th>Result</th>
                                 <th>Correct Questions</th>
                                 <th>Action</th>
@@ -139,10 +159,13 @@
                 </div>
             </section>
 
-            <div class="actions-panel" style="flex-direction: column; align-items: center; gap: 15px;">
-                <button id="start-exam-btn" class="action-btn primary-btn large-btn">Start Practice Exam</button>
-                <p class="troubleshoot-note" style="font-size: 0.85rem; color: var(--text-secondary); max-width: 600px; text-align: center; line-height: 1.4; border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 5px;">
-                    🔑 <strong>Troubleshoot Connection:</strong> If you see a connection error, make sure to type <code>http://localhost:8000</code> explicitly. If your browser automatically redirects to HTTPS, try opening a private/incognito window, or delete the HSTS domain policy for <code>localhost</code> in <code>chrome://net-internals/#hsts</code>.
+            <div class="actions-panel">
+                <button id="start-exam-btn" class="action-btn primary-btn large-btn">
+                    <span>Start Practice Exam</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+                <p class="troubleshoot-note">
+                    Official AI-901 blueprint alignment · Auto-saves on every response · Full post-exam diagnostics
                 </p>
             </div>
         </main>
@@ -158,7 +181,10 @@
                 <div class="exam-progress-container">
                     <div class="progress-details">
                         <span id="question-progress-text">Question 1 of 50</span>
-                        <span id="exam-timer">00:00:00</span>
+                        <div class="timer-pill">
+                            <span class="timer-icon">⏱</span>
+                            <span id="exam-timer">00:00:00</span>
+                        </div>
                     </div>
                     <div class="progress-bar-bg">
                         <div id="progress-bar-fill" class="progress-bar-fill" style="width: 2%;"></div>
@@ -188,15 +214,20 @@
                     <!-- Question Metadata Header -->
                     <div class="question-meta">
                         <span id="q-meta-objective" class="meta-badge">Objective 1</span>
-                        <span id="q-meta-difficulty" class="meta-badge uppercase">Medium</span>
+                        <span id="q-meta-difficulty" class="meta-badge">Medium</span>
                         <span id="q-meta-topic" class="meta-badge info-badge">Responsible AI: Fairness</span>
                         <span id="q-meta-type" class="meta-badge type-badge">Single Choice</span>
                     </div>
 
-                    <!-- Scenario Card -->
+                    <!-- Scenario Card with Elevated Font & Prominence -->
                     <div id="q-scenario-card" class="scenario-card">
-                        <span class="card-label">SCENARIO DETAILS:</span>
-                        <p id="q-scenario-text">Scenario text goes here...</p>
+                        <div class="scenario-header">
+                            <span class="card-label">
+                                <svg class="scenario-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                Case Scenario
+                            </span>
+                        </div>
+                        <div id="q-scenario-text" class="scenario-body">Scenario text goes here...</div>
                     </div>
 
                     <!-- Question Prompt -->
@@ -219,7 +250,8 @@
                     <button id="prev-btn" class="control-btn outline-btn">◀ Previous</button>
                     <label class="review-checkbox-label">
                         <input type="checkbox" id="mark-review-chk">
-                        <span class="checkbox-custom"></span> Mark for Review
+                        <span class="review-flag-icon">⚑</span>
+                        <span class="review-text">Mark for Review</span>
                     </label>
                     <button id="next-btn" class="control-btn outline-btn">Next ▶</button>
                 </div>
@@ -230,9 +262,12 @@
 
             <!-- Bottom CLI Command Bar Interface -->
             <div class="terminal-bar">
-                <div class="terminal-prompt">ai901-sim:~$</div>
-                <input type="text" id="terminal-input" placeholder="Type command here (e.g. /next, /mark, /status, /submit)..." autocomplete="off">
-                <div id="terminal-status-log" class="terminal-status-log">Session started. Type commands directly.</div>
+                <div class="terminal-prompt">
+                    <span class="cli-icon">⚡</span>
+                    <span>ai901:~$</span>
+                </div>
+                <input type="text" id="terminal-input" placeholder="Quick commands (/next, /prev, /mark, /status, /submit)..." autocomplete="off" spellcheck="false">
+                <div id="terminal-status-log" class="terminal-status-log">Session active. Use hotkeys A–D or arrows to navigate.</div>
             </div>
         </main>
 
