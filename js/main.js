@@ -93,6 +93,12 @@ function setupEventListeners() {
     // Export focus guide click handler
     elements.exportReportBtn.addEventListener("click", exportFocusStudyGuide);
 
+    // Clear personal history button handler
+    const clearHistoryBtn = document.getElementById("clear-history-btn");
+    if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener("click", clearMyExamHistory);
+    }
+
     // Global keyboard listener for hotkeys on single-choice questions
     // Also handles arrow key navigation and letter/number selection
     window.addEventListener("keydown", (e) => {

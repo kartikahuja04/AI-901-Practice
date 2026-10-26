@@ -1,12 +1,46 @@
-// REST Client: Load Past Exam Attempts
+// ─── Personal Device Session Tracker (Option A) ─────────────────────────────
+function getMySessionIds() {
+    try {
+        const raw = localStorage.getItem("ai901_my_sessions");
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function recordMySessionId(sessionId) {
+    if (!sessionId) return;
+    try {
+        const sessions = getMySessionIds();
+        if (!sessions.includes(sessionId)) {
+            sessions.push(sessionId);
+            localStorage.setItem("ai901_my_sessions", JSON.stringify(sessions));
+        }
+    } catch (e) {
+        console.error("Failed to record session in localStorage", e);
+    }
+}
+
+function clearMyExamHistory() {
+    if (confirm("Are you sure you want to clear your personal exam history from this device?")) {
+        localStorage.removeItem("ai901_my_sessions");
+        loadExamHistory();
+    }
+}
+
+// REST Client: Load Past Exam Attempts (Filtered to Current Device)
 async function loadExamHistory() {
     try {
         const response = await fetch("/api/history");
         const data = await response.json();
 
-        if (data.history && data.history.length > 0) {
+        // Filter: only show attempts belonging to this browser/device
+        const mySessions = new Set(getMySessionIds());
+        const personalHistory = (data.history || []).filter(item => mySessions.has(item.session_id));
+
+        if (personalHistory && personalHistory.length > 0) {
             elements.historyTbody.innerHTML = "";
-            data.history.forEach(item => {
+            personalHistory.forEach(item => {
                 const date = new Date(item.timestamp).toLocaleString();
                 const score = item.score;
                 const statusClass = item.status === "PASS" ? "status-pass" : "status-fail";
@@ -33,7 +67,7 @@ async function loadExamHistory() {
         } else {
             elements.historyTbody.innerHTML = `
                 <tr>
-                    <td colspan="5" class="no-history">No exam attempts found in database. Start a new exam to begin tracking.</td>
+                    <td colspan="5" class="no-history">No personal exam attempts found on this device. Start a practice exam to track your scores!</td>
                 </tr>
             `;
         }
@@ -57,6 +91,9 @@ async function startNewExam() {
         const data = await response.json();
 
         if (data.session_id) {
+            // Track this session on this device
+            recordMySessionId(data.session_id);
+
             // Setup session state
             state = {
                 session_id: data.session_id,

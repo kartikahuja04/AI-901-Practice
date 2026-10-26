@@ -47,6 +47,7 @@ async function submitExamForGrading() {
         const report = await response.json();
 
         if (report.score !== undefined) {
+            recordMySessionId(state.session_id);
             state.lastReport = report;
             renderFinalReport(report);
             clearSessionFromLocalStorage();
